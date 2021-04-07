@@ -47,6 +47,11 @@ a{
     
 }
 
+img{
+    display: block;
+    
+}
+
 `;
 
 export default GlobalStyles;
