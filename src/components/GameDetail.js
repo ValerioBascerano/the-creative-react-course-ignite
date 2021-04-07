@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { smallImage } from "../util";
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
   const history = useHistory();
+
   //Exit Detail
-  const exitDetailHandler = (e) => {
+  const exitDetailHander = (e) => {
     const element = e.target;
     if (element.classList.contains("shadow")) {
       document.body.style.overflow = "auto";
@@ -23,11 +24,11 @@ const GameDetail = () => {
   return (
     <>
       {!isLoading && (
-        <CardShadow className="shadow" onClick={exitDetailHandler}>
-          <Detail>
+        <CardShadow className="shadow" onClick={exitDetailHander}>
+          <Detail layoutId={pathId}>
             <Stats>
               <div className="rating">
-                <h3>{game.name}</h3>
+                <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
               </div>
               <Info>
@@ -40,7 +41,8 @@ const GameDetail = () => {
               </Info>
             </Stats>
             <Media>
-              <img
+              <motion.img
+                layoutId={`image ${pathId}`}
                 src={smallImage(game.background_image, 1280)}
                 alt={game.background_image}
               />
@@ -51,7 +53,7 @@ const GameDetail = () => {
             <div className="gallery">
               {screen.results.map((screen) => (
                 <img
-                  src={(smallImage(screen.image), 1280)}
+                  src={smallImage(screen.image, 1280)}
                   key={screen.id}
                   alt={screen.image}
                 />
@@ -101,7 +103,6 @@ const Stats = styled(motion.div)`
   align-items: center;
   justify-content: space-between;
 `;
-
 const Info = styled(motion.div)`
   text-align: center;
 `;
@@ -123,4 +124,5 @@ const Media = styled(motion.div)`
 const Description = styled(motion.div)`
   margin: 5rem 0rem;
 `;
+
 export default GameDetail;
